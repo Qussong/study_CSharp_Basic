@@ -216,3 +216,54 @@
     ```
 
 ## Array 클래스
+- `Array.Sort()`</br>
+    배열을 오름차순으로 정렬한다.
+    ```cs
+    int[] numbers = { 2, 1, 5, 3, 4 };
+    foreach (var number in numbers)
+        Console.Write(number + " ");
+    // 2 1 5 3 4
+
+    Array.Sort(numbers);    // 배열 오름차순 정렬
+    foreach (var number in numbers)
+        Console.Write(number + " ");
+    // 1 2 3 4 5
+    ```
+- `Array.Reverse()`</br>
+    배열의 순서를 반대로 뒤집는다.
+    ```cs
+    int[] numbers = { 2, 1, 5, 3, 4 };
+    foreach (var number in numbers)
+        Console.Write(number + " ");
+    // 2 1 5 3 4
+
+    Array.Reverse(numbers);    // 배열 뒤집음
+    foreach (var number in numbers)
+        Console.Write(number + " ");
+    // 4 3 5 1 2
+    ```
+- `Array.IndexOf()`</br>
+    배열에서 특정 값의 최초위치의 인덱스를 찾는다. 
+    ```cs
+    int[] numbers = { 2, 1, 5, 3, 1, 4 };
+    int index = Array.IndexOf(numbers, 1);  // 1의 인덱스를 찾음
+    Console.WriteLine(index);   // 1
+    ```
+    만약 존재하지 않는 값의 위치를 찾으려고 한다면 -1 을 반환한다.
+    ```cs
+    int[] numbers = { 2, 1, 5, 3, 1, 4 };
+    int index = Array.IndexOf(numbers, 111);
+    Console.WriteLine(index);   // -1
+    ```
+- `Array.Resize()`</br>
+    배열의 크기를 조정한다. 늘어난 공간에는 기본값이 들어간다.
+    ```cs
+    int[] numbers = { 1, 2, 3 };
+    Console.WriteLine(numbers.Length);  // 3
+    Array.Resize(ref numbers, 5);   // 배열의 크기를 5로 변경
+    Console.WriteLine(numbers.Length);  // 5
+    
+    foreach (var number in numbers)
+        Console.Write(number + " ");
+    // 1 2 3 0 0
+    ```
