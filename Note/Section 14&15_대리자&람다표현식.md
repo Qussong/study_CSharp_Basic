@@ -201,11 +201,117 @@ delegate int Operation(int a, int b);
 - 이벤트는 Invoke() 권한을 제한한 델리게이트다.
 
 ## 대리자 - 함수 매개변수
+- 매개변수로 함수를 넘겨받을 수 있다.
+    ```cs
+    void ApplyOperation(int a, int b, Operation operation)
+    {
+        int result = operation(a, b);
+        Console.WriteLine(result);
+    }
+
+    int Plus(int a, int b) => a + b;
+    int Minu(int a, int b) => a - b;
+
+    ApplyOperation(5, 10, Plus);    // 15;
+    ApplyOperation(5, 10, Minu);    // -5;
+
+    delegate int Operation(int a, int b);
+    ```
+
 ## 대리자 - Func
+- 매번 대리자를 선언하는것은 비효율적이다.
+- `Func` : 사전에 정의되어있는 대리자 중 하나로 반환값이 있는 메서드의 캡슐화
+- Func 대리자의 경우 Generic 으로 매개변수과 반환값을 넣어준다.
+    ```cs
+    void ApplyOperation(int a, int b, Func<int, int, int> operation)
+    {
+        int result = operation(a, b);
+        Console.WriteLine(result);
+    }
+
+    int Plus(int a, int b) => a + b;
+    int Minu(int a, int b) => a - b;
+
+    ApplyOperation(5, 10, Plus);    // 15;
+    ApplyOperation(5, 10, Minu);    // -5;
+    ```
+
 ## 대리자 - Action
+- `Action` : 반환값이 없는 메서드의 캡슐화
+    ```cs
+    void ActionMethod(string s, int i)
+    {
+        // 함수 기능
+    }
+
+    Action<string, int> action = ActionMethod;
+    ```
+- 매개변수로 16개 까지 지원을 하지만, 이러한 코드 작성은 추천되지 않는다.
+
 ## 대리자 - Predicate
+- `Predicate` : 조건에 따라 bool 값을 반환하는 메서드의 캐슐화
+    ```cs
+    bool IsGreaterThanZero(int value)
+    {
+        return value > 0;
+    }
+
+    Predicate<int> predicate = IsGreaterThanZero;
+    Console.WriteLine(predicate.Invoke(2));  // True
+    ```
+
 ## 대리자  - Comparison
+- `Comparison` : 조건에 따라 bool 값을 반환하는 메서드의 캐슐화
+    ```cs
+    bool IsGreaterThanZero(int value)
+    {
+        return value > 0;
+    }
+
+    Predicate<int> predicate = IsGreaterThanZero;
+    Console.WriteLine(predicate.Invoke(2));  // True
+    ```
 
 # Section 15
 
 ## 람다(Lambda) 표현식
+- 매개변수를 받아 특정 작업을 수행하는 "익명 함수"를 정의하는 방법
+- 기존의 메서드를 정의하지 않고도 간단한 함수를 작성할 수 있어 코드의 가독성과 간결성을 높여준다.
+    ```cs
+    (매개변수) => { 표현식 }    // 형식
+    ```
+- Func 예제
+    ```cs
+    // base case
+    Func<int, int, int> operation = Plus;
+    Console.WriteLine(operation(5, 10));    // 15
+    int Plus(int a, int b)
+    {
+        return a + b;
+    }
+
+    // case 1
+    Func<int, int, int> operation2 = (int a, int b) => { return a + b; };
+    // case 2
+    Func<int, int, int> operation3 = (a, b) => { return a + b; };   // Func 에서 int 타입이 명시되어있기에 매개변수 타입 생략가능
+    // case 3
+    Func<int, int, int> operation4 = (a, b) => a + b;   // 표현식이 한줄이라면 본문 표현식 활용가능
+
+    Console.WriteLine(operation2(5, 10));   // 15
+    Console.WriteLine(operation3(5, 10));   // 15
+    Console.WriteLine(operation4(5, 10));   // 15
+    ```
+- Action 예제
+    ```cs
+    // base case
+    Action<int, int> operation = (int a, int b) => { Console.WriteLine(a + b); };
+    operation(5, 10);   // 15
+
+    // case 1
+    Action<int, int> operation2 = (a, b) => { Console.WriteLine(a + b); };  // 매개변수 타입 생략
+    // case 2
+    Action<int, int> operation3 = (a, b) => Console.WriteLine(a + b);       // 본문 표현식 활용
+
+    operation2(5, 10);   // 15
+    operation3(5, 10);   // 15
+    ```
