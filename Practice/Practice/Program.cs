@@ -1,19 +1,28 @@
 ﻿
 
+using System.Reflection.Metadata;
 
-var fruits = new Stack<string>();
-fruits.Push("사과");
-fruits.Push("바나나");
-fruits.Push("체리");
+List<Student> students = [
+    new Student { Id = 1, Name = "Alice", Age = 20},
+    new Student { Id = 2, Name = "Bob", Age = 22},
+    new Student { Id = 3, Name = "Charlie", Age = 23},
+    new Student { Id = 4, Name = "David", Age = 21},
+    new Student { Id = 5, Name = "Eve", Age = 20},
+];
 
-Console.Write(fruits.Pop() + " ");
-Console.Write(fruits.Pop() + " ");
-Console.Write(fruits.Peek() + " ");
-Console.Write(fruits.Pop());
-// 체리 바나나 사과 사과
 
-//Console.Write(fruits.Pop());    //  ❌ 오류발생
-fruits.TryPop(out string? newFruit);
-Console.Write(newFruit);
+ Console.ReadKey();
 
-Console.ReadKey();
+class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public int Age { get; set; }
+    public string Gender { get; set; } = "";
+    public List<int> Scores { get; set; } = [];
+
+    public override string ToString()
+    {
+        return $"Id : {Id}, Name : {Name}, Age : {Age}";
+    }
+}
