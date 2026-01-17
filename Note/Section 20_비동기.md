@@ -275,11 +275,54 @@ async void Button_Click(...)
 - 따라서 캡처하지 않는다는 것은 이후 코드를 굳이 원래 환경으로 돌려보내지 않겠다는 의미가된다.
 
 ## 비동기와 동기의 차이 : Non-Blocking
+- 간단메모 :
+    - 동기와 비동기의 차이를 보여주기위해 WinForm에서 동기 테스트 버튼을 만들어 시각적인 예시를 만들어봄
+
 ## 비동기 (반환 타입 Task, WhenAll)
+- 간단메모 :
+    - Task.WhenAny(List<Task>)
+    - While 문과 WhenAny() 함수로 먼저 완료된 Task 를 꺼내어 출력하는 예제코드 작성
+
 ## 비동기 (deadlock 원인 및 해결방안)
+- 간단메모 :
+    - 데드락 발생원인과 해결방법
+    - Task.Wait() : 비동기를 동기적으로 기다리게하는 기능
+    - ConfigureAwait(false)
+    - Task.Result
+
 ## 비동기 (스트림-IAsyncEnumerable)
+- 간단메모 :
+    - 비동기 열거 타입 : IAsyncEnumerable
+    - await foreach
+    - 비동기 스트림 구현 코드 작성
+
 ## 비동기 (CancelationTokenSource - 1)
+- 간단메모 : 
+    - 비동기 스트림 중지 기능
+    - CancelationTokenSource
+    - CancelationToken
+    - 비동기 캔슬시 try-catch 로 예외처리 필요함 (TaskCanceledException 발생)
+    - \[EnumeratorCancellation\] 속성
+    - CancelationTokenSource 는 사용시 메모리 해제를 직접해줘야한다. (finally 에서 해줄것)
+    - 비동기 작업이 여러번 동작하지않도록 방지코드 작성해줄것
+
 ## 비동기 (CancelationTokenSource - 2)
+- 간단메모 : 
+    - CancelationToken.ThromIfCancellationRequested() : 해당 코드 실행전에 CancelationTokenSource.Cancel() 함수 호출시 해당 코드 실행시 OperationCanceledException 발생시킴, 예외를 바로 발생시키지않고 해당 코드가 실행되는경우 발생시킴
+    - Delay() 의 인자로 token 을 넣어주는 코드와 함께 사용하여 비동기 작업을 중지시킨다.
+    - CancelationToken.IsCancellationRequested : 해당 코드 실행전에 CancelationTokenSource.Cancel() 호출시 해당 코드 실행시 true를 반환함
+
 ## 비동기 (Task.Run - 무거운 연산 처리)
+- 간단메모 : 
+    - 비동기에서 큰 연산을 수행하는경우 어떻게하면 좋은가?
+    - Task.Run() : 가벼운 ThreadPool 사용시 활용
+
 ## 비동기 (Task.Factory.StartNew)
+- 간단메모 : 
+    - Task.Factory : Task.Run()에서 다양한 기능을 추가해서 사용하는 기능
+    - Task.Factory.StartNew()
+    - TaskCreationOptions.AttachedToParent
+
 ## 비동기 (파일 생성, 복사 실습)
+- 간단메모 : 
+    - 비동기 활용 예제
